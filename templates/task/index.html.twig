@@ -1,20 +1,63 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TaskController!{% endblock %}
+{% block title %}Task Table{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="min-h-screen bg-neutral-primary-soft p-6">
+    <section class="mx-auto max-w-7xl">
+        <div class="mb-8">
+            <h1 class="text-5xl leading-tight font-semibold text-heading">Task</h1>
+            <p class="mt-2 text-sm text-gray-500">A clean overview of your current tasks.</p>
+        </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Applications/XAMPP/xamppfiles/htdocs/github/Symfony-CRUD-Task/src/Controller/TaskController.php</code></li>
-        <li>Your template at <code>/Applications/XAMPP/xamppfiles/htdocs/github/Symfony-CRUD-Task/templates/task/index.html.twig</code></li>
-    </ul>
+        <div class="overflow-x-auto rounded-base border border-default bg-neutral-primary shadow-xs">
+            <table class="w-full table-auto text-left text-sm text-body">
+                <thead class="border-b border-default bg-neutral-secondary-soft">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-xs font-semibold uppercase text-gray-500">
+                            Title
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-xs font-semibold uppercase text-gray-500">
+                            Description
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-xs font-semibold uppercase text-gray-500">
+                            Status
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-xs font-semibold uppercase text-gray-500">
+                            Created At
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-neutral-primary">
+                    {% for task in tasks %}
+                    <tr class="border-b border-default">
+                        <th scope="row" class="whitespace-nowrap px-6 py-4 font-semibold text-gray-800">
+                            {{ task.title }}
+                        </th>
+                        <td class="px-6 py-4 text-gray-600">
+                            {{ task.description }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="inline-flex rounded-sm bg-neutral-secondary-soft px-3 py-1 text-xs font-medium uppercase text-gray-600">
+                                {{ task.status.value }}
+                            </span>
+                        </td>
+                        <td class="whitespace-nowrap px-6 py-4 text-gray-500">
+                            {{ task.createdAt|date('Y-m-d H:i') }}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="px-6 py-8 text-center text-sm text-gray-500">
+                            No tasks found.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
 </div>
+
 {% endblock %}
